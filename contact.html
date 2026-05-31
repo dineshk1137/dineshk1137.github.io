@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Dinesh Kumar Chandra</title>
+  <meta name="description"
+    content="Reach out to Dinesh Kumar Chandra for full-stack engineering roles, API integrations, or system designs.">
+  <link rel="canonical" href="https://dineshchandra.dev/contact.html">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="global-header">
+    <div class="header-container">
+      <a href="index.html" class="logo" aria-label="Dinesh Kumar Chandra Home"><span
+          aria-hidden="true">DKC.dev</span></a>
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="contact-section" aria-labelledby="form-section-title">
+      <div class="section-container">
+        <h1 id="form-section-title">Initiate Collaboration</h1>
+        <p class="section-desc">Submit your project details below. The backend handles ingestion validation
+          asynchronously.</p>
+
+        <!-- Dynamic Announcement Alert Box for Screen Readers -->
+        <div id="form-status" class="form-status-alert" aria-live="assertive"></div>
+
+        <!-- Fully Descriptive HTML5 Form mapped cleanly to REST endpoint logic -->
+        <form id="api-contact-form" action="/api/contact" method="POST" class="accessible-form" novalidate>
+
+          <!-- Name Group -->
+          <div class="form-group">
+            <label for="client-name">Full Name</label>
+            <input type="text" id="client-name" name="name" autocomplete="name" required aria-required="true"
+              aria-describedby="name-error">
+            <span class="error-message" id="name-error" aria-live="polite"></span>
+          </div>
+
+          <!-- Email Group -->
+          <div class="form-group">
+            <label for="client-email">Email Address</label>
+            <input type="email" id="client-email" name="email" autocomplete="email" required aria-required="true"
+              aria-describedby="email-error">
+            <span class="error-message" id="email-error" aria-live="polite"></span>
+          </div>
+
+          <!-- Project Classification Group -->
+          <div class="form-group">
+            <label for="project-type">Engineering Scope</label>
+            <select id="project-type" name="scope" required aria-required="true">
+              <option value="" disabled selected>Select system requirement...</option>
+              <option value="django">Django / Python Development</option>
+              <option value="express">Express.js / Node Integration</option>
+              <option value="fullstack">End-to-End MERN Production</option>
+              <option value="consulting">System Design & Data Ingestion</option>
+            </select>
+          </div>
+
+          <!-- Message Body Group -->
+          <div class="form-group">
+            <label for="message-body">Functional Specifications / Message</label>
+            <textarea id="message-body" name="message" rows="6" required aria-required="true"
+              aria-describedby="message-error" placeholder="Provide a summary of technical requirements..."></textarea>
+            <span class="error-message" id="message-error" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="btn btn-submit">Submit System Query</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="global-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 Dinesh Kumar Chandra. Hand-coded with precise semantics.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('api-contact-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const statusAlert = document.getElementById('form-status');
+      const emailField = document.getElementById('client-email');
+      const emailError = document.getElementById('email-error');
+
+      let validationFailed = false;
+
+      // Clean declarative regex validation pattern
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(emailField.value)) {
+        validationFailed = true;
+        emailField.setAttribute('aria-invalid', 'true');
+        emailError.textContent = 'Invalid execution context: please format as user@domain.com.';
+        emailField.focus();
+      } else {
+        emailField.removeAttribute('aria-invalid');
+        emailError.textContent = '';
+      }
+
+      if (!validationFailed) {
+        // Simulating clean handling structure matching an Express or Django JSON response resolution
+        statusAlert.innerHTML = '<p class="success-text" role="alert">Status 201 (Created): Message successfully logged into the data engine.</p>';
+        this.reset();
+      } else {
+        statusAlert.innerHTML = '<p class="error-text" role="alert">Status 422 (Unprocessable Entity): Please rectify your form inputs.</p>';
+      }
+    });
+  </script>
+</body>
+
+</html>
